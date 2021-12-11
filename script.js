@@ -1,5 +1,7 @@
 // Write your JavaScript code here!
-
+let fuelReady = false;
+let cargoReady = false;
+let fieldCheck;
 window.addEventListener("load", function() {
 
    let listedPlanets;
