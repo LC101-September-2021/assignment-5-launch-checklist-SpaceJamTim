@@ -2,6 +2,23 @@
 
 // Write your JavaScript code here!
 window.addEventListener("load" , function() {
+   
+  fetch("https://handlers.education.launchcode.org/static/planets.json").then(function(response) {
+   response.json().then(function(json){
+      const missionTarget = document.getElementById('missionTarget');
+      const index = Math.floor(Math.random() * json.length - 1);
+      missionTarget.innerHTML = `
+      <ol>
+      <li>Name: ${json[index].name}</li>
+      <li>Diameter: ${json[index].diameter}</li>
+      <li>Star: ${json[index].star}</li>
+      <li>Distance from Earth: ${json[index].distance}</li>
+      <li>Number of Moons: ${json[index].moons}</li>
+      </ol>
+      <img src="${json[index].image}">
+      `;
+   });
+});
 
     let form = document.querySelector("form");
 
@@ -28,8 +45,13 @@ window.addEventListener("load" , function() {
 }
 
  else{ // If the fuel level and cargo mass are integers, make these checks below
-    if(fuelLevel.value < 10000){ // Is the fuelLevel value below 10,000?
-        faultyItems.style.visibility = 'visible';
+   faultyItems.style.visibility = 'visible';
+   pilotStatus.innerHTML = `${pilotName.value} is ready to launch`
+  
+   copilotStatus.innerHTML = `${copilotName.value} is ready to launch`
+
+  
+   if(fuelLevel.value < 10000){ // Is the fuelLevel value below 10,000?
         fuelStatus.innerHTML = `Fuel level too low for the journey!`;
         launchStatus.innerHTML = `Shuttle not ready for launch`;
         launchStatus.style.color = 'red';
@@ -58,22 +80,6 @@ window.addEventListener("load" , function() {
 
   }
 
-  fetch("https://handlers.education.launchcode.org/static/planets.json").then(function(response) {
-         response.json().then(function(json){
-            const missionTarget = document.getElementById('missionTarget');
-            const index = Math.floor(Math.random() * json.length - 1);
-            missionTarget.innerHTML = `
-            <ol>
-            <li>Name: ${json[index].name}</li>
-            <li>Diameter: ${json[index].diameter}</li>
-            <li>Star: ${json[index].star}</li>
-            <li>Distance from Earth: ${json[index].distance}</li>
-            <li>Number of Moons: ${json[index].moons}</li>
-            </ol>
-            <img src="${json[index].image}">
-            `;
-         });
-     });
   /* let listedPlanets;
    // Set listedPlanetsResponse equal to the value returned by calling myFetch()
    let listedPlanetsResponse;
