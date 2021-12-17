@@ -6,7 +6,7 @@ window.addEventListener("load" , function() {
     let form = document.querySelector("form");
 
    form.addEventListener("submit", function(event){
-    
+      event.preventDefault();
 
     let pilotName = document.querySelector("input[name=pilotName]");
    let copilotName = document.querySelector("input[name=copilotName]");
@@ -19,25 +19,14 @@ window.addEventListener("load" , function() {
    let pilotStatus = document.getElementById('pilotStatus');
    let copilotStatus = document.getElementById('copilotStatus');
 
-   if (pilotName.value === ""|| copilotName.value === "" || fuelLevel.value === "" || cargoMass.value === "") {
+   if (validateInput(pilotName.value) === "empty"|| validateInput(copilotName.value) === "empty" || validateInput(fuelLevel.value) === "empty" || validateInput(cargoMass.value === "empty") ){
     alert("All fields are required!");
-    event.preventDefault();
  }
 
- if (isNaN(pilotName.value) || isNaN(copilotName.value)){
-    pilotStatus.innerHTML = `Pilot ${pilotName.value} is ready`;
-    copilotStatus.innerHTML = `Co-pilot ${copilotName.value} is ready`;
- }
- else{
-    alert("Pilot & Co-pilot need to be human names, not integers!");
-    event.preventDefault();
- }
+ else if (isNaN(pilotName.value) === false || isNaN(copilotName.value) === false || isNaN(fuelLevel.value) || isNaN(cargoMass.value)) {
+   alert("Make sure to enter valid information for each field!");
+}
 
-
- if (isNaN(fuelLevel.value) || isNaN(cargoMass.value)){
-    alert("Fuel level & cargo mass need to be integers!");
-    event.preventDefault();
- }
  else{ // If the fuel level and cargo mass are integers, make these checks below
     if(fuelLevel.value < 10000){ // Is the fuelLevel value below 10,000?
         faultyItems.style.visibility = 'visible';
